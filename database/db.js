@@ -7,7 +7,7 @@ require('dotenv').config();
 //const mongodbURL = 'mongodb://0.0.0.0:27017/dbhotels';
 //const mongodbURL  = 'mongodb+srv://Ranjeet:Ranjeet123@cluster0.9gdueml.mongodb.net/';
 
-//const mongodbURL = process.env.MONGODB_URL_LOCAL; 
+// const mongodbURL = process.env.MONGODB_URL_LOCAL; 
 const mongodbURL = process.env.MONGODB_URL;
 
 

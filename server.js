@@ -1,27 +1,37 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT||3000;
+const PORT = process.env.PORT||3001;
+const passport = require("./auth");
 
 require('dotenv').config();
-const Person = require('./models/person');
-const menuItem = require('./models/menuItem');
+// const menuItem = require('./models/menuItem');
+//const User = require('../models/user');
+
 const db = require('./database/db');
+
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 
-app.get("/", function (req, res) {
-    res.send("Hello World");
+const logRequest = (req,res,next)=>{
+    console.log(`[${new Date().toLocaleString()}] Request Made to :${req.originalUrl}`);
+    next(); 
+};
+app.use(logRequest);
+
+
+app.use(passport.initialize());
+
+const localAuthMiddleware = passport.authenticate('local',{session:false});
+app.get("/",function (req, res) {
+    res.send("Welcome To India");
 });
 
-const personRoutes = require('./routes/personRoutes');
-app.use('/person',personRoutes);
-
-const menuItemRoutes = require('./routes/menuItemRoutes');
-app.use('/menu',menuItemRoutes);
+const userRoutes = require('./routes/userRoutes');
+app.use('/user',userRoutes);
 
 
 app.listen(PORT, () => {
-    console.log("Listing on the port 3000");
+    console.log("Listing on the port 3001");
 });
